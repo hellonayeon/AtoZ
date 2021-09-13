@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Google Font 'Do Hyeon' -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <title>상품 주문 페이지</title>
+
+    <style>
+        * {
+            font-family: 'Do Hyeon', sans-serif;
+        }
+        .wrap {
+            width: 700px;
+            height: 300px;
+            margin: auto;
+            background-color: red;
+            text-align: center;
+        }
+        .product-thumbnail {
+            width: 100%;
+            height: 100%;
+        }
+        .product-summary {
+            text-align: left;
+            margin: 30px auto 30px auto;
+        }
+        .price-info {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <img class="product-thumbnail"
+             src="data:image/jpeg;base64,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">
+
+        <div class="product-summary">
+            <h1 class="order-title">iMac 팝니다 <span class="price-info">2,190,000원</span></h1>
+            <p>
+                이제 새로운 iMac을 만날 시간. Apple 최고의 기술과 디자인이 응집되어, M1 칩으로 완전히 새롭게 탄생했습니다.
+                어느 공간에서나 돋보이고, 어떤 삶의 방식과도 완벽히 어우러지죠.
+            </p>
+        </div>
+
+        <div class="order-info">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">주문자 이름</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default"
+                       aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">수량</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01">
+                    <option selected>-- 수량을 선택하세요 --</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">주소</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default"
+                       aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">전화번호</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default"
+                       aria-describedby="inputGroup-sizing-default">
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">주문하기</button>
+    </div>
+</body>
+
+</html>
