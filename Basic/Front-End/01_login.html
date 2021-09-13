@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <!-- style.css 파일을 같은 폴더에 만들고, head 태그에서 불러오기 -->
+    <!-- <link rel="stylesheet" type="text/css" href = "(css파일이름).css"> -->
+
+    <style>
+        /* '*' 은 모든 태그에 적용을 의미 */
+        * {
+            font-family: 'Do Hyeon', sans-serif;
+        }
+        .page_title {
+            background-color: green;
+
+            width: 300px;
+            height: 200px;
+
+            color: white;
+            text-align: center;
+
+            /* 이미지 관련 CSS 세트 */
+            background-image: url("https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg");
+            background-size: cover;
+            background-position: center;
+
+            border-radius: 10px;
+
+            /* padding(안쪽 여백) margin(바깥쪽 여백) */
+            /* margin: 20px 0px 0px 30px; */ /* 시계방향(상우하좌) */
+            padding-top: 30px;
+        }
+
+        .wrap {
+            background-color: green;
+            width: 300px;
+            margin: auto; /* 양쪽 여백 동등하게 */
+        }
+
+        .btn {
+            width: 100px;
+            display: block;
+            margin: auto; /* 움직이지 않아(HTML에서 '글' 속성과 '박스' 속성이 있다.) */
+        }
+
+        .font {
+            color: red;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="page_title">
+            <h1>로그인 페이지</h1>
+            <h5>아이디, 패스워드를 입력해주세요</h5>
+        </div>
+
+        <p>ID: <input type="text"/></p>
+        <p>PW: <input type="password"/></p>
+        <button class="btn font">로그인</button>
+    </div>
+</body>
+</html>
