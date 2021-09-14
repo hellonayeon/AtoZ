@@ -52,11 +52,16 @@
         .dollar-rate-box {
             color: blue;
         }
+
+        .table {
+            margin-top: 40px;
+        }
     </style>
 
     <script>
         $(document).ready(function(){
 	        show_exchange_rate()
+            show_order_list()
         });
 
         function show_exchange_rate() {
@@ -67,6 +72,49 @@
                 success: function(response) {
                     let rate = response['rate']
                     $('#dollar-rate').text(rate)
+                }
+            })
+        }
+
+        function show_order_list() {
+            $.ajax({
+                type: "GET",
+                url: "/order",
+                data: {},
+                success: function(response) {
+                    let orders = response['all_orders']
+
+                    for(let i = 0; i < orders.length; i++) {
+                        let name = orders[i]['name']
+                        let quantity = orders[i]['quantity']
+                        let residence = orders[i]['residence']
+                        let phone = orders[i]['phone']
+
+                        let tmp_html = `<tr>
+                                            <td>${name}</td><td>${quantity}</td><td>${residence}</td><td>${phone}</td>
+                                        </tr>`
+
+                        $('#order-table-body').append(tmp_html)
+                    }
+                }
+            })
+        }
+
+        function order() {
+            let name = $('#name').val()
+            let quantity = $('#quantity option:selected').val()
+            let residence = $('#residence').val()
+            let phone = $('#phone').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/order",
+                data:{name_give: name, quantity_give: quantity,
+                    residence_give: residence, phone_give: phone},
+                success: function(response) {
+                    alert(response['msg'])
+                    // 화면 재로딩: 입력된 값을 초기화 -> GET '/' 호출 ->  $(document).ready() 호출
+                    window.location.reload()
                 }
             })
         }
@@ -94,16 +142,16 @@
         <div class="order-info">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">주문자 이름</span>
+                    <span class="input-group-text" >주문자 이름</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Default"
+                <input type="text" id="name" class="form-control" aria-label="Default"
                        aria-describedby="inputGroup-sizing-default">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">수량</label>
+                    <label class="input-group-text">수량</label>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01">
+                <select class="custom-select" id="quantity">
                     <option selected>-- 수량을 선택하세요 --</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -114,19 +162,30 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">주소</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Default"
+                <input type="text" id="residence" class="form-control" aria-label="Default"
                        aria-describedby="inputGroup-sizing-default">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">전화번호</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Default"
+                <input type="text" id="phone" class="form-control" aria-label="Default"
                        aria-describedby="inputGroup-sizing-default">
             </div>
         </div>
 
-        <button class="btn btn-primary" type="submit">주문하기</button>
+        <button class="btn btn-primary" type="submit" onclick="order()">주문하기</button>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>이름</td><td>수량</td><td>주소</td><td>전화번호</td>
+                </tr>
+            </thead>
+            <tbody id="order-table-body">
+                <!-- Dynamic Contents -->
+            </tbody>
+        </table>
     </div>
 </body>
 
