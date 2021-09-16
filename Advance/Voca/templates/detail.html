@@ -78,7 +78,7 @@
         <script>
             let word = '{{ word }}'
             $(document).ready(function () {
-                get_definitions()
+                // get_definitions() // jinja2 로 구현
             })
 
             function get_definitions() {
@@ -127,6 +127,7 @@
                     }
                 })
             }
+
         </script>
     </head>
     <body>
@@ -138,8 +139,12 @@
             <div class="container">
             <div class="d-flex justify-content-between align-items-end">
                 <div>
-                    <h1 id="word" style="display: inline;">owl</h1>
-                    <h5 id="pronunciation" style="display: inline;">/oul/</h5>
+                    <h1 id="word" style="display: inline;">{{ result.word }}</h1>
+
+                    {% if result.pronunciation %}
+                        <h5 id="pronunciation" style="display: inline;">{{ result.pronunciation }}</h5>
+                    {% endif %}
+
                 </div>
                 <button id="btn-save" class="btn btn-outline-sparta btn-lg">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
@@ -151,6 +156,17 @@
             <hr>
             <div id="definitions">
                 <!-- Dynamic Content -->
+                {% for definition in result.definitions %}
+                    <div style="padding:10px">
+                        <i>{{ definition.type }}</i>
+                        <br>{{ definition.definition.encode('ascii', 'ignore').decode('utf-8') }}<br>
+
+                        {% if definition.example %}
+                            <span class="example">{{ definition.example.encode('ascii', 'ignore').decode('utf-8')|safe }}</span> <!-- '|safe': 값이 HTML일 수 있는데, 그대로 표시해줘 -->
+                        {% endif %}
+
+                    </div>
+                {% endfor %}
             </div>
         </div>
         </div>
