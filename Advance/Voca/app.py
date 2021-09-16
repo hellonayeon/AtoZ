@@ -1,24 +1,35 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify, redirect, url_for
+from pymongo import MongoClient
 import requests
+
 
 app = Flask(__name__)
 
+client = MongoClient('15.164.98.254', 27017, username="test", password="test")
+db = client.dbsparta_advance_week2
+
 @app.route('/')
 def main():
-    myname = 'hellonayeon'
-    return render_template("index.html", name=myname)
+    # DB에서 저장된 단어 찾아서 HTML에 나타내기
+    return render_template("index.html")
 
-# 주소의 일부를 클라이언트측의 변수로 사용 가능하도록 [url?key=value 형식X]
+
 @app.route('/detail/<keyword>')
 def detail(keyword):
-    r = requests.get(f"https://owlbot.info/api/v4/dictionary/{keyword}", headers={"Authorization": "Token [토큰정보]"})
-    result = r.json()
-    print(result)
-
-    word_receive = request.args.get("word_give")
-    print(word_receive)
-
+    # API에서 단어 뜻 찾아서 결과 보내기
     return render_template("detail.html", word=keyword)
+
+
+@app.route('/api/save_word', methods=['POST'])
+def save_word():
+    # 단어 저장하기
+    return jsonify({'result': 'success', 'msg': '단어 저장'})
+
+
+@app.route('/api/delete_word', methods=['POST'])
+def delete_word():
+    # 단어 삭제하기
+    return jsonify({'result': 'success', 'msg': '단어 삭제'})
 
 
 if __name__ == '__main__':
