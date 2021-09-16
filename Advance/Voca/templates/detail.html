@@ -5,10 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Sparta Vocabulary Notebook</title>
 
+        <!-- Optional CSS -->
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
+
+        <!-- Font Awesome -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -20,7 +24,88 @@
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
                 crossorigin="anonymous"></script>
 
+
+
+        <style>
+            .wrap {
+                background-color: RGBA(232, 52, 78, 0.2);
+                min-height: 100vh;
+                padding-bottom: 50px;
+            }
+
+            .banner {
+                width: 100%;
+                height: 200px;
+
+                background-color: white;
+                background-image: url('{{ url_for("static", filename="logo_red.png") }}');
+
+                background-position: center;
+                background-size: contain;
+                background-repeat: no-repeat;
+
+                cursor: pointer;
+            }
+            .container {
+                width: 80%;
+                max-width: 800px;
+                margin: 30px auto;
+                padding: 20px;
+                background-color: white;
+
+                border: solid 1px gray;
+                border-radius: 10px;
+            }
+
+            span.example {
+                color: gray;
+                font-size: 14px;
+            }
+
+            .btn-sparta {
+                color: #fff;
+                background-color: #e8344e;
+                border-color: #e8344e;
+            }
+
+            .btn-outline-sparta {
+                color: #e8344e;
+                background-color: transparent;
+                background-image: none;
+                border-color: #e8344e;
+            }
+        </style>
     </head>
     <body>
+        <div class="wrap">
+            <!-- Banner -->
+            <div class="banner" onclick="window.location.href = '/'">
+            </div>
+            <!-- Voca Box -->
+            <div class="container">
+            <div class="d-flex justify-content-between align-items-end">
+                <div>
+                    <h1 id="word" style="display: inline;">owl</h1>
+                    <h5 id="pronunciation" style="display: inline;">/oul/</h5>
+                </div>
+                <button id="btn-save" class="btn btn-outline-sparta btn-lg">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                </button>
+                <button id="btn-delete" class="btn btn-sparta btn-lg">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+            </div>
+            <hr>
+            <div id="definitions">
+                <div style="padding:10px">
+                    <i>noun</i>
+                    <br>a nocturnal bird of prey with large eyes, a facial disc, a hooked beak, and typically a loud
+                    hooting call.<br>
+                    <span class="example">I love reaching out into that absolute silence, when you can hear the owl or the wind.</span>
+                </div>
+            </div>
+        </div>
+        </div>
+
     </body>
 </html>
