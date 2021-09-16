@@ -5,6 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Sparta Vocabulary Notebook</title>
 
+        <meta property="og:title" content="나만의 단어장: 목록 페이지"/>
+        <meta property="og:description" content="mini project for Web Advance"/>
+        <meta property="og:image" content="{{ url_for('static', filename='logo_red.png') }}"/>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -81,6 +87,11 @@
             }
         </style>
         <script>
+            // console.log("{{ msg }}")
+            {% if msg %}
+                alert("{{ msg }}")
+            {% endif %}
+
             let words = {{ words|tojson }}; // HTML 형식으로 가져오는 것이 아니라, 문자열 형태로 가져오기 위해 '|tojson'
             let word_list = []; // 내 단어장에 있는 단어의 목록
             for(let i = 0; i < words.length; i++) {
