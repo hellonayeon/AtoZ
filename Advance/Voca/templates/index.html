@@ -70,7 +70,44 @@
             tbody:last-child tr:last-child td:last-child {
                 border-radius: 0 0 10px 0;
             }
+
+            tr.highlight > td {
+                background-color: #e8344e;
+                color: white;
+            }
+
+            tr.highlight > td > a {
+                color: white;
+            }
         </style>
+        <script>
+            let words = {{ words|tojson }}; // HTML 형식으로 가져오는 것이 아니라, 문자열 형태로 가져오기 위해 '|tojson'
+            let word_list = []; // 내 단어장에 있는 단어의 목록
+            for(let i = 0; i < words.length; i++) {
+                word_list.push(words[i]["word"])
+            }
+            console.log(word_list)
+
+            function find_word() {
+                let word = $('#input-word').val().toLowerCase()
+
+                if(word == '') {
+                    alert('단어를 입력해주세요 !')
+                    return
+                }
+
+                if(word_list.includes(word)) {
+                    // 리스트에 있으면 하이라이트
+                    $(`#word-${word}`).addClass('highlight')
+                    $(`#word-${word}`).siblings().removeClass('highlight') // 형제 제거
+                    $(`#word-${word}`)[0].scrollIntoView()
+                }
+                else {
+                    // 리스트에 없으면 새 단어를 위한 상세페이지로
+                    window.location.href = `/detail/${word}?status_give=new`
+                }
+            }
+        </script>
     </head>
     <body>
         <div class="wrap">
