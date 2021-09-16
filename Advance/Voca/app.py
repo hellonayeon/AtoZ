@@ -5,7 +5,7 @@ import requests
 
 app = Flask(__name__)
 
-client = MongoClient('3.35.37.10', 27017, username="test", password="test")
+client = MongoClient('54.180.87.49', 27017, username="test", password="test")
 db = client.dbsparta_advance_week2
 
 @app.route('/')
@@ -28,13 +28,24 @@ def detail(keyword):
 @app.route('/api/save_word', methods=['POST'])
 def save_word():
     # 단어 저장하기
-    return jsonify({'result': 'success', 'msg': '단어 저장'})
+    word_receive = request.form["word_give"]
+    definition_receive = request.form["definition_give"]
+    doc = {
+        'word': word_receive,
+        'definition': definition_receive
+    }
+
+    db.words.insert_one(doc)
+
+    return jsonify({'result': 'success', 'msg': f'단어 {word_receive} 저장 !'})
 
 
 @app.route('/api/delete_word', methods=['POST'])
 def delete_word():
     # 단어 삭제하기
-    return jsonify({'result': 'success', 'msg': '단어 삭제'})
+    word_receive = request.form["word_give"]
+    db.words.delete_one({ "word": word_receive })
+    return jsonify({'result': 'success', 'msg': f'단어 {word_receive} 삭제'})
 
 
 if __name__ == '__main__':
