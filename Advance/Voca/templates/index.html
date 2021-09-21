@@ -110,7 +110,7 @@
                 if(word_list.includes(word)) {
                     // 리스트에 있으면 하이라이트
                     $(`#word-${word}`).addClass('highlight')
-                    $(`#word-${word}`).siblings().removeClass('highlight') // 형제 제거
+                    $(`#word-${word}`).siblings().removeClass('highlight') // 형제 제거 - 기존에 찾았던 내용의 하이라이트를 없애기 위해
                     $(`#word-${word}`)[0].scrollIntoView()
                 }
                 else {
