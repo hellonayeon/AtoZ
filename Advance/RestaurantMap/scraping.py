@@ -7,7 +7,7 @@ import requests
 
 
 client = MongoClient('54.180.87.49', 27017, username="test", password="test")
-db = client.dbsparta_plus_week3
+db = client.dbsparta_advance_week3
 
 driver = webdriver.Chrome('./chromedriver')
 
@@ -15,6 +15,15 @@ url = "http://matstar.sbs.co.kr/location.html"
 
 driver.get(url)
 time.sleep(5)
+
+# 더보기 버튼 10회 클릭
+for i in range(10):
+    try:
+        btn_more = driver.find_element_by_css_selector("#foodstar-front-location-curation-more-self > div > button")
+        btn_more.click()
+        time.sleep(5)
+    except NoSuchElementException:
+        break
 
 req = driver.page_source
 driver.quit()
@@ -42,5 +51,15 @@ for place in places:
             x = float(response["addresses"][0]["x"])
             y = float(response["addresses"][0]["y"])
             print(title, address, category, show, episode, x, y)
+
+            doc = {
+                "title": title,
+                "address": address,
+                "category": category,
+                "show": show,
+                "episode": episode,
+                "mapx": x,
+                "mapy": y}
+            db.matjips.insert_one(doc)
         else:
             print(title, "좌표를 찾지 못했습니다")
