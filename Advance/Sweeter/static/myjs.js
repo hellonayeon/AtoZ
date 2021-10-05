@@ -84,11 +84,14 @@ function num2str(count) {
     return count
 }
 
-function get_posts() {
+function get_posts(username) {
+    if (username==undefined) {
+        username=""
+    }
     $("#post-box").empty()
     $.ajax({
         type: "GET",
-        url: "/get_posts",
+        url: `/get_posts?username_give=${username}`,
         data: {},
         success: function (response) {
             if (response["result"] == "success") {
@@ -133,7 +136,3 @@ function get_posts() {
         }
     })
 }
-
-$(document).ready(function () {
-    get_posts()
-})
