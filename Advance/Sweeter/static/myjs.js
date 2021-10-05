@@ -1,8 +1,26 @@
 function toggle_like(post_id, type) {
     console.log(post_id, type)
-    let $a_like = $(`#${post_id} a[aria-label='heart']`)
+    let $a_like = $(`#${post_id} a[aria-label=${type}]`)
     let $i_like = $a_like.find("i")
-    if ($i_like.hasClass("fa-heart")) {
+
+    let fa_class
+    let fa_o_class
+    switch(type) {
+        case 'heart':
+            fa_class = 'fa-heart'
+            fa_o_class = 'fa-heart-o'
+            break;
+        case 'star':
+            fa_class = 'fa-star'
+            fa_o_class = 'fa-star-o'
+            break;
+        case 'thumbs-up':
+            fa_class = 'fa-thumbs-up'
+            fa_o_class = 'fa-thumbs-o-up'
+            break;
+    }
+
+    if ($i_like.hasClass(fa_class)) {
         $.ajax({
             type: "POST",
             url: "/update_like",
@@ -13,7 +31,7 @@ function toggle_like(post_id, type) {
             },
             success: function (response) {
                 console.log("unlike")
-                $i_like.addClass("fa-heart-o").removeClass("fa-heart")
+                $i_like.addClass(fa_o_class).removeClass(fa_class)
                 $a_like.find("span.like-num").text(num2str(response["count"]))
             }
         })
@@ -28,7 +46,7 @@ function toggle_like(post_id, type) {
             },
             success: function (response) {
                 console.log("like")
-                $i_like.addClass("fa-heart").removeClass("fa-heart-o")
+                $i_like.addClass(fa_class).removeClass(fa_o_class)
                 $a_like.find("span.like-num").text(num2str(response["count"]))
             }
         })
@@ -100,8 +118,16 @@ function get_posts(username) {
                     let post = posts[i]
                     let time_post = new Date(post["date"])
                     let time_before = time2str(time_post)
+                    // 하트
                     let class_heart = post['heart_by_me'] ? "fa-heart" : "fa-heart-o"
                     let count_heart = post['count_heart']
+                    // 별
+                    let class_star = post['star_by_me'] ? "fa-star" : "fa-star-o"
+                    let count_star = post['count_star']
+                    // 엄지
+                    let class_thumbs_up = post['thumbs_up_by_me'] ? "fa-thumbs-up" : "fa-thumbs-o-up"
+                    let count_thumbs_up = post['count_thumbs_up']
+
                     let html_temp = `<div class="box" id="${post["_id"]}">
                                                 <article class="media">
                                                     <div class="media-left">
@@ -120,9 +146,20 @@ function get_posts(username) {
                                                         </div>
                                                         <nav class="level is-mobile">
                                                             <div class="level-left">
+                                                                <!-- 하트 -->
                                                                 <a class="level-item is-sparta" aria-label="heart" onclick="toggle_like('${post['_id']}', 'heart')">
                                                                     <span class="icon is-small"><i class="fa ${class_heart}"
                                                                                                    aria-hidden="true"></i></span>&nbsp;<span class="like-num">${num2str(count_heart)}</span>
+                                                                </a>
+                                                                <!-- 별 -->
+                                                                <a class="level-item is-sparta" aria-label="star" onclick="toggle_like('${post['_id']}', 'star')">
+                                                                    <span class="icon is-small"><i class="fa ${class_star}"
+                                                                                                   aria-hidden="true"></i></span>&nbsp;<span class="like-num">${num2str(count_star)}</span>
+                                                                </a>
+                                                                <!-- 엄지 -->
+                                                                <a class="level-item is-sparta" aria-label="thumbs-up" onclick="toggle_like('${post['_id']}', 'thumbs-up')">
+                                                                    <span class="icon is-small"><i class="fa ${class_thumbs_up}"
+                                                                                                   aria-hidden="true"></i></span>&nbsp;<span class="like-num">${num2str(count_thumbs_up)}</span>
                                                                 </a>
                                                             </div>
 
